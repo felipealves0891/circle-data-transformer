@@ -91,6 +91,7 @@ namespace Circle.Core.DataTransformer
 
             Input.Close();
             Output.Close();
+            OnDiagnose(this, null);
         }
 
         public object[] ToTransform(object[] line, int lineNumber)
@@ -100,7 +101,8 @@ namespace Circle.Core.DataTransformer
 
             if (line != null)
                 foreach (var t in Transformers)
-                    line = line.Select((data, index) => t.Transform(data, index, lineNumber)).ToArray();
+                    for (int i = 0; i < line.Length; i++)
+                        line[i] = t.Transform(line[i], i, lineNumber);
 
             return line;
         }

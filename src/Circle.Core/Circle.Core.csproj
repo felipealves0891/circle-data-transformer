@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransformer\Builder\TransformationBuilder.cs" />
     <Compile Include="DataTransformer\Input\IInputSource.cs" />
     <Compile Include="DataTransformer\Input\Sources\CsvInputSource.cs" />
     <Compile Include="DataTransformer\Input\Sources\SqlServerInputSource.cs" />
