@@ -71,6 +71,7 @@
     <Compile Include="DataTransformer\Output\Sources\SqlServerOutputSource.cs" />
     <Compile Include="DataTransformer\Output\Sources\TextOutputSource.cs" />
     <Compile Include="DataTransformer\Transformation.cs" />
+    <Compile Include="DataTransformer\TransformationDiagnostic.cs" />
     <Compile Include="DataTransformer\Transformer\IRowTransformer.cs" />
     <Compile Include="DataTransformer\Transformer\ITransformer.cs" />
     <Compile Include="DataTransformer\Transformer\Transformations\TransformerColumns.cs" />

@@ -8,7 +8,7 @@ using Circle.Core.DataTransformer.Transformer;
 
 namespace Circle.Core.DataTransformer
 {
-    public class Transformation
+    public class Transformation : TransformationDiagnostic
     {
         public IInputSource Input { get; private set; }
 
@@ -18,7 +18,10 @@ namespace Circle.Core.DataTransformer
 
         public List<IRowTransformer> RowTransformers { get; private set; }
 
+        public int Counter { get; private set; }
+
         public Transformation(IInputSource input, IOutputSource output)
+            : base()
         {
             Input = input;
             Output = output;
@@ -27,6 +30,7 @@ namespace Circle.Core.DataTransformer
         }
 
         public Transformation(IInputSource input, IOutputSource output, List<ITransformer> transformers)
+            : base()
         {
             Input = input;
             Output = output;
@@ -34,6 +38,7 @@ namespace Circle.Core.DataTransformer
         }
 
         public Transformation(IInputSource input, IOutputSource output, List<IRowTransformer> rowTransformers)
+            : base()
         {
             Input = input;
             Output = output;
@@ -41,6 +46,7 @@ namespace Circle.Core.DataTransformer
         }
 
         public Transformation(IInputSource input, IOutputSource output, List<ITransformer> transformers, List<IRowTransformer> rowTransformers)
+            : base()
         {
             Input = input;
             Output = output;
@@ -66,7 +72,7 @@ namespace Circle.Core.DataTransformer
 
         public void Execute()
         {
-            var counterLines = 0;
+            Counter = 0;
 
             while(Input.Next())
             {
@@ -74,13 +80,13 @@ namespace Circle.Core.DataTransformer
                 object[] line = Input.GetData();
 
                 // apply the transformation
-                line = ToTransform(line, counterLines);
+                line = ToTransform(line, Counter);
 
                 // if the line is not null it sends it to the output
                 if (line != null)
                     Output.SetData(line);
 
-                counterLines++;
+                Counter++;
             }
 
             Input.Close();
