@@ -15,7 +15,7 @@ namespace Circle.Core.DataTransformer.Transformer.Transformations
 
         public object Transform(object inputData, int inputIndex, int lineIndex)
         {
-            return string.IsNullOrEmpty(inputData.ToString()) ? _value : inputData;
+            return inputData != null && (string)inputData != "" ? inputData: _value;
         }
     }
 }
