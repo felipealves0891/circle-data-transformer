@@ -14,13 +14,12 @@ namespace Circle.MVP
         static void Main(string[] args)
         {
             string path = @"D:\db\";
-            string query = "insert into Teste values (@1, @2, @3, @4, @5, @6)";
 
             var inputStream = new TextInputSource();
-            inputStream.Open(Path.Combine(path, "input5.csv"));
+            inputStream.Open(Path.Combine(path, "input.csv"));
 
-            var outputStream = new SqlServerOutputSource(query, new string[] { "@1", "@2", "@3", "@4", "@5", "@6" });
-            outputStream.Open("Server=(LocalDB)\\MSSQLLocalDB;Database=dbDataTransformer;Trusted_Connection=True;");
+            var outputStream = new TextOutputSource();
+            outputStream.Open(Path.Combine(path, "output.csv"));
 
             var builder = new TransformationBuilder();
             var transformation = builder.SetInput(inputStream)
