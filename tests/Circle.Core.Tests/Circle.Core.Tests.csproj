@@ -36,8 +36,4 @@
     <ProjectReference Include="..\..\src\Circle.Core\Circle.CoreOld.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataTransformer\Transformer\RowTransformations\" />
-  </ItemGroup>
-
 </Project>
