@@ -7,7 +7,7 @@ codigo em C# ou Javascript atravez da biblioteca ClearScript
 
 - Input e Output
 
-> A Transformation espera dois parametros obrigatorios, uma classe que implemente a interface __IInputSource__ e __IOutputSource__.
+> A Transformation espera dois parametros obrigatorios, uma classe que implemente a interface __IInputSource__ e outra que implementa a __IOutputSource__.
 
 ```
 var inputStream = new TextInputSource();
