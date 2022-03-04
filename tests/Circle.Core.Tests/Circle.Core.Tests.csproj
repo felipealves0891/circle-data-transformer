@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Circle.Core\Circle.Core.csproj" />
-    <ProjectReference Include="..\..\src\Circle.Core\Circle.CoreOld.csproj" />
   </ItemGroup>
 
 </Project>
