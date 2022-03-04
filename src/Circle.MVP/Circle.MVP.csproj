@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Circle.Core\Circle.Core.csproj" />
-    <ProjectReference Include="..\Circle.Core\Circle.CoreOld.csproj" />
   </ItemGroup>
 
 </Project>
