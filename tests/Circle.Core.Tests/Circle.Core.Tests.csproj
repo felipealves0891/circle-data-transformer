@@ -5,16 +5,7 @@
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <COMReference Include="{bed7f4ea-1a96-11d2-8f08-00a0c9a6186d}">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>4</VersionMinor>
-      <VersionMajor>2</VersionMajor>
-      <Guid>bed7f4ea-1a96-11d2-8f08-00a0c9a6186d</Guid>
-    </COMReference>
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Bogus" Version="32.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
