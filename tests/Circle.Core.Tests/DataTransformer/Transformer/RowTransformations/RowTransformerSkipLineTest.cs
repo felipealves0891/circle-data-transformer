@@ -21,8 +21,9 @@ namespace Circle.Core.Tests.DataTransformer.Transformer.RowTransformations
 
 
         [Fact]
-        public void TestColumnsWithHeader()
+        public void Transform_SkipFirstLine_Asserting()
         {
+            //Arrange
             var t = new RowTransformerSkipLine(0);
             var actual = new object[4];
             var expected = new object[4]
@@ -33,11 +34,12 @@ namespace Circle.Core.Tests.DataTransformer.Transformer.RowTransformations
                 new object[3] { "3", "Catia", "1973-02-20"}
             };
 
+            //Act
             for (int i = 0; i < _values.Length; i++)
                 actual[i] = t.Transform((object[])_values[i], i);
 
+            //Assert
             Assert.Equal(expected, actual);
-
         }
 
     }

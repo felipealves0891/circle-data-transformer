@@ -24,8 +24,9 @@ namespace Circle.Core.Tests.DataTransformer.Transformer.Transformations
         }
 
         [Fact]
-        public void TestColumnsWithHeader()
+        public void Transform_SkipHeader_Asserting()
         {
+            //Arrange
             var t = new TransformerColumns(_types, true);
             var actual = new object[4] 
             {
@@ -43,17 +44,20 @@ namespace Circle.Core.Tests.DataTransformer.Transformer.Transformations
                 new object[3] { 3, "Catia", new DateTime(1973, 02, 20) }
             };
 
+            //Act
             for (int i = 0; i < _values.Length; i++)
                 for (int j = 0; j < ((object[])_values[i]).Length; j++)
                     ((object[])actual[i])[j] = t.Transform(((object[])_values[i])[j], j, i);
 
+            //Assert
             Assert.Equal(expected, actual);
 
         }
 
         [Fact]
-        public void TestColumnsWithoutHeader()
+        public void Transform_ConvertTypes_Asserting()
         {
+            //Arrange
             var t = new TransformerColumns(_types, false);
             var actual = new object[3]
             {
@@ -69,10 +73,12 @@ namespace Circle.Core.Tests.DataTransformer.Transformer.Transformations
                 new object[3] { 3, "Catia", new DateTime(1973, 02, 20) }
             };
 
+            //Act
             for (int i = 1; i < _values.Length; i++)
                 for (int j = 0; j < ((object[])_values[i]).Length; j++)
                     ((object[])actual[i-1])[j] = t.Transform(((object[])_values[i])[j], j, i-1);
 
+            //Assert
             Assert.Equal(expected, actual);
 
         }

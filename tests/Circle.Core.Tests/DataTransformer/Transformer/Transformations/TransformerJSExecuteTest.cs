@@ -7,15 +7,20 @@ namespace Circle.Core.Tests.DataTransformer.Transformer.Transformations
 {
     public class TransformerJSExecuteTest
     {
-        private string _script = "function transformer(data){ return data + '_transformed';}";
-
         [Theory]
         [InlineData("Nome_transformed", "Nome")]
         [InlineData("Sobrenome_transformed", "Sobrenome")]
-        public void JSExecute(string expected, string actual)
+        public void Transform_ExecuteScript_Asserting(string expected, string test)
         {
-            var t = new TransformerJSExecute(_script);
-            Assert.Equal(expected, t.Transform(actual, 0, 0));
+            //Arrange
+            string script = "function transformer(data){ return data + '_transformed';}";
+
+            //Act
+            var t = new TransformerJSExecute(script);
+            var actual = t.Transform(test, 0, 0);
+
+            //Assert
+            Assert.Equal(expected, actual);
         }
     }
 }
