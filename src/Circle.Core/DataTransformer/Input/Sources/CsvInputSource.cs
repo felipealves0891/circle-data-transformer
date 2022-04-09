@@ -14,6 +14,15 @@ namespace Circle.Core.DataTransformer.Input.Sources
 
         private bool _header = true;
 
+        ///<summary>
+        /// -Type connection
+        /// --Connection odbc 
+        /// --Driver = Microsoft Access Text Driver (*.txt, *.csv)
+        /// -ConnectionString
+        /// --file directory
+        /// -Query
+        /// --select column1, column2 from filename.ext
+        ///</summary>
         public CsvInputSource(string query)
         {
             _command = new OdbcCommand();
