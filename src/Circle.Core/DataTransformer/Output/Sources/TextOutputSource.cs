@@ -33,19 +33,8 @@ namespace Circle.Core.DataTransformer.Output.Sources
         public void SetData(object[] data)
         {
             StringBuilder builder = new StringBuilder();
-            bool delimit = false;
-
-            foreach(var column in data)
-            {
-                if (delimit)
-                    builder.Append(_delimiter);
-
-                builder.Append(column);
-                delimit = true;
-            }
-
+            builder = builder.AppendJoin(_delimiter, data);
             _write.WriteLine(builder);
-                
         }
 
         public void Close()
