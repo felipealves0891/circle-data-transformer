@@ -45,6 +45,7 @@ namespace Circle.Core.DataTransformer
         public void Dispose()
         {
             _stopwatch.Stop();
+            _timer.Dispose();
         }
 
         public long ElapsedTimeInMileseconds()
