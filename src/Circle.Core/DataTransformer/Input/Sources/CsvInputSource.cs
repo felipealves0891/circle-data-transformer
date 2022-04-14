@@ -4,6 +4,11 @@ using System.Data;
 
 namespace Circle.Core.DataTransformer.Input.Sources
 {
+    /// <summary>
+    /// ;Type connection
+    /// ;Connection odbc 
+    /// ;Driver = Microsoft Access Text Driver (*.txt, *.csv)
+    /// </summary>
     public class CsvInputSource : IInputSource
     {
         private OdbcConnection _connection;
@@ -15,13 +20,8 @@ namespace Circle.Core.DataTransformer.Input.Sources
         private bool _header = true;
 
         ///<summary>
-        /// -Type connection
-        /// --Connection odbc 
-        /// --Driver = Microsoft Access Text Driver (*.txt, *.csv)
-        /// -ConnectionString
-        /// --file directory
-        /// -Query
-        /// --select column1, column2 from filename.ext
+        /// Query =
+        /// select column1, column2 from filename.ext
         ///</summary>
         public CsvInputSource(string query)
         {
@@ -30,6 +30,11 @@ namespace Circle.Core.DataTransformer.Input.Sources
             _command.CommandText = query;
         }
 
+        /// <summary>
+        /// ConnectionString=
+        /// file directory
+        /// </summary>
+        /// <param name="connectionString"></param>
         public void Open(string connectionString)
         {
             connectionString = $"Driver=Microsoft Access Text Driver (*.txt, *.csv);Dbq={connectionString}; Extensions=asc,csv,tab,txt;FMT=CSVDelimited;";

@@ -15,20 +15,18 @@ namespace Circle.MVP
     {
         static void Main(string[] args)
         {
-            RunJoinSources();
+            RunCsvInput();
         }
 
         private static void Run() 
         {
-            string path = @"D:\db\";
-
             // Cria uma stream que sera lido
             var inputStream = new TextInputSource();
-            inputStream.Open(Path.Combine(path, "input.csv"));
+            inputStream.Open(@"D:\Source\DataSets\ml-25m\ratings.csv");
 
             // Cria uma stream que sera gravado
             var outputStream = new TextOutputSource();
-            outputStream.Open(Path.Combine(path, "output.csv"));
+            outputStream.Open(@"D:\Source\DataSets\Outputs\ratings.csv");
 
             // Cria a transformação
             var transformation = new Transformation(inputStream, outputStream);
@@ -129,6 +127,33 @@ namespace Circle.MVP
 
         }
 
+
+        private static void RunCsvInput()
+        {
+            // Cria uma stream que sera lido
+            var inputStream = new CsvInputSource("select * from [movies.csv]");
+            inputStream.Open(@"D:\Source\DataSets\ml-25m\");
+
+            // Cria uma stream que sera gravado
+            var outputStream = new TextOutputSource();
+            outputStream.Open(@"D:\Source\DataSets\Outputs\output.csv");
+
+            // Cria a transformação
+            var transformation = new Transformation(inputStream, outputStream);
+            transformation.AddRowTransformer(new RowTransformerSkipLine(0));
+            transformation.AddTransformer(new TransformerNullToEmpty());
+            transformation.AddTransformer(new TransformerToLower());
+
+            // Adiciona um evento, com ele podemos acessar os estatos da transformação
+            transformation.Diagnose += Transformation_Diagnose;
+
+            // Executa a transformação e finaliza a transformação
+            transformation.Execute();
+            transformation.Dispose();
+
+        }
+
+
         private static void Transformation_Diagnose(object sender, EventArgs e)
         {
             var t = sender as Transformation;
@@ -137,6 +162,7 @@ namespace Circle.MVP
 
             Console.Clear();
             Console.WriteLine($"\nRows : {t.Counter.ToString("n0")}");
+            Console.WriteLine($@"R\S  : {(t.Counter / t.ElapsedTimeInSeconds()).ToString("n0")}");
             Console.WriteLine($"Time : {time}");
             Console.WriteLine($"Gen0 : {t.Collected(0)}");
             Console.WriteLine($"Gen1 : {t.Collected(1)}");
