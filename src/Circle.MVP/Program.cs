@@ -107,11 +107,9 @@ namespace Circle.MVP
             var outputStream = new TextOutputSource();
             outputStream.Open(Path.Combine(path, "output.csv"));
 
-            // Cria um builder
-            var builder = new TransformationBuilder();
-
             // Adiciona os streams e define as transformações que serão adicionadas
-            var transformation = builder.SetInput(inputStream)
+            var transformation = TransformationBuilder.Instance()
+                                        .SetInput(inputStream)
                                         .SetOutput(outputStream)
                                         .AddTransformerByType(typeof(TransformerNullToEmpty))
                                         .AddTransformerByType(typeof(TransformerToLower))

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Circle.Core.DataTransformer.Builder
 {
-    public class TransformationBuilder
+    public class TransformationBuilder : IBuilder, IBuilderInput, IBuilderOutput, IBuilderTransformation
     {
         private IInputSource _input;
 
@@ -16,45 +16,50 @@ namespace Circle.Core.DataTransformer.Builder
 
         private List<IRowTransformer> _rowTransformers;
 
-        public TransformationBuilder()
+        private TransformationBuilder()
         {
             _transformers = new List<ITransformer>();
             _rowTransformers = new List<IRowTransformer>();
         }
 
-        public TransformationBuilder SetInput(IInputSource input)
+        public static IBuilderInput Instance()
+        {
+            return new TransformationBuilder();
+        }
+        
+        public IBuilderOutput SetInput(IInputSource input)
         {
             _input = input;
             return this;
         }
 
-        public TransformationBuilder SetOutput(IOutputSource output)
+        public IBuilderTransformation SetOutput(IOutputSource output)
         {
             _output = output;
             return this;
         }
 
-        public TransformationBuilder AddTransformerByType(Type type, params object[] args)
+        public IBuilderTransformation AddTransformerByType(Type type, params object[] args)
         {
             var t = (ITransformer)Activator.CreateInstance(type, args);
             _transformers.Add(t);
             return this;
         }
 
-        public TransformationBuilder AddTransformer(ITransformer t)
+        public IBuilderTransformation AddTransformer(ITransformer t)
         {
             _transformers.Add(t);
             return this;
         }
 
-        public TransformationBuilder AddRowTransformerByType(Type type, params object[] args)
+        public IBuilderTransformation AddRowTransformerByType(Type type, params object[] args)
         {
             var t = (IRowTransformer)Activator.CreateInstance(type, args);
             _rowTransformers.Add(t);
             return this;
         }
 
-        public TransformationBuilder AddRowTransformer(IRowTransformer rt)
+        public IBuilderTransformation AddRowTransformer(IRowTransformer rt)
         {
             _rowTransformers.Add(rt);
             return this;
