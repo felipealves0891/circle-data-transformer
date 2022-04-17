@@ -15,7 +15,7 @@ namespace Circle.MVP
     {
         static void Main(string[] args)
         {
-            RunCsvInput();
+            RunCsv();
         }
 
         private static void Run() 
@@ -126,14 +126,14 @@ namespace Circle.MVP
         }
 
 
-        private static void RunCsvInput()
+        private static void RunCsv()
         {
             // Cria uma stream que sera lido
             var inputStream = new CsvInputSource("select * from [movies.csv]");
             inputStream.Open(@"D:\Source\DataSets\ml-25m\");
 
             // Cria uma stream que sera gravado
-            var outputStream = new TextOutputSource();
+            var outputStream = new CsvOutputSource();
             outputStream.Open(@"D:\Source\DataSets\Outputs\output.csv");
 
             // Cria a transformação
@@ -157,10 +157,11 @@ namespace Circle.MVP
             var t = sender as Transformation;
 
             var time = (t.ElapsedTimeInSeconds() / 60).ToString("0#") + ":" + (t.ElapsedTimeInSeconds() % 60).ToString("0#");
+            var rs = t.ElapsedTimeInSeconds() == 0 ? t.Counter : t.Counter / t.ElapsedTimeInSeconds();
 
             Console.Clear();
             Console.WriteLine($"\nRows : {t.Counter.ToString("n0")}");
-            Console.WriteLine($@"R\S  : {(t.Counter / t.ElapsedTimeInSeconds()).ToString("n0")}");
+            Console.WriteLine($@"R\S  : {(rs).ToString("n0")}");
             Console.WriteLine($"Time : {time}");
             Console.WriteLine($"Gen0 : {t.Collected(0)}");
             Console.WriteLine($"Gen1 : {t.Collected(1)}");
